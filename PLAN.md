@@ -32,7 +32,7 @@
 
 ## Roadmap
 
-1. **Done (2026-09):** OpenCC `s2twp` conversion via a Localization hook, plus config toggle. In-game visual check with the language set to 简体中文 still pending.
+1. **Done (2026-09):** OpenCC `s2twp` conversion via a Localization hook, plus config toggle. Verified in game (locale zh): main-menu strings are converted, e.g. 音频→音訊, 视频→影片. Glyphs still use the SC font.
 2. Noto Sans TC dynamic font asset.
 3. Glossary override and TMP fallback hook.
 4. Polish: handle game updates; list of known untranslated strings.
