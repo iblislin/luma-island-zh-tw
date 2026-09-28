@@ -2,14 +2,14 @@
 
 An **unofficial** fan mod that adds Traditional Chinese (Taiwan, zh-TW) to [Luma Island](https://store.steampowered.com/app/2408820/) by Feel Free Games.
 
-> Status: OpenCC text conversion and a built-in glossary are implemented. The Noto Sans TC font is not done yet. See [PLAN.md](PLAN.md).
+> Status: OpenCC text conversion, a built-in glossary and the Noto Sans TC font are implemented. See [PLAN.md](PLAN.md).
 
 ## How it works
 
 Luma Island already ships Simplified Chinese. This mod reuses it:
 
 1. **Runtime conversion with OpenCC.** A BepInEx 5 + Harmony plugin hooks the Unity Localization string lookup. When the game locale is Simplified Chinese and the mod's zh-TW option is on, each string is converted with [OpenCC](https://github.com/BYVoid/OpenCC) using the `s2twp` config (Simplified to Taiwan standard, including Taiwan phrases). Results are cached.
-2. **Taiwan glyphs with Noto Sans TC.** The game's Noto Sans SC font already covers nearly all CJK ideographs, but with PRC glyph shapes. The mod creates a dynamic TMP font asset from [Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC) at runtime and makes it primary while zh-TW is active, keeping Noto Sans SC as a fallback.
+2. **Taiwan glyphs with Noto Sans TC.** The game's Noto Sans SC font already covers nearly all CJK ideographs, but with PRC glyph shapes. When the locale is `zh`, the mod repoints the game's dynamic `NotoSansSC-Regular SDF` TMP font asset at [Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC) and clears its glyph tables, so all glyphs (including the 657 pre-baked ones) are regenerated from TC. The asset, atlas texture and the game's custom text materials stay the same.
 3. **Glossary.** After OpenCC, a small glossary fixes game-specific terms that automatic conversion gets wrong (see [Glossary](#glossary)).
 
 **For the developers:** this is a cheap path to official Traditional Chinese. Run your Simplified Chinese tables through OpenCC `s2twp` (Apache-2.0), add Noto Sans TC (OFL-1.1, free to ship), and have a native speaker review key terms. A plain conversion alone was apparently tried before, so this mod shows the fuller variant: Taiwan phrasing, TC glyphs and a glossary. We'd be happy to share anything we learn.
@@ -17,15 +17,16 @@ Luma Island already ships Simplified Chinese. This mod reuses it:
 ## Install
 
 1. Download BepInEx 5.4.x `BepInEx_win_x64_*.zip` from the [official releases](https://github.com/BepInEx/BepInEx/releases) and extract it into the game folder (next to `Luma Island.exe`). This adds `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version` and a `BepInEx/` folder. The game's exe and DLLs are not modified.
-2. Copy `LumaZhTw.dll` into `BepInEx/plugins/LumaZhTw/`.
+2. Copy `LumaZhTw.dll`, `fonts/NotoSansTC-Regular.otf` and `fonts/OFL.txt` into `BepInEx/plugins/LumaZhTw/`.
 3. In the game, set the language to **简体中文** (Simplified Chinese). The mod converts it to Traditional Chinese (Taiwan).
 
 Config (`BepInEx/config/iblislin.luma.zhtw.cfg`, created on first run):
 
 - `[General] Enabled` (default `true`): turn conversion on or off.
+- `[General] UseTraditionalFont` (default `true`): render zh text with Noto Sans TC (Taiwan glyph shapes). Restart to apply.
 - `[Debug] DebugLogSamples` (default `false`): log the first 20 conversions to `BepInEx/LogOutput.log`.
 
-Known limitation: glyphs still use the game's Simplified Chinese font (PRC shapes). Phase 2 adds Noto Sans TC.
+If the font file is missing or the swap fails, the mod logs one error and keeps the original font.
 
 ### Glossary
 
@@ -87,7 +88,7 @@ Harmony postfixes on `StringTableEntry.GetLocalizedString(IFormatProvider, IList
 ## Licenses and credits
 
 - Our code: [MIT](LICENSE).
-- OpenCC dictionaries: Apache-2.0 ([license](third_party/OpenCC/LICENSE)). Noto Sans TC: SIL Open Font License 1.1. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- OpenCC dictionaries: Apache-2.0 ([license](third_party/OpenCC/LICENSE)). Noto Sans TC Regular (`fonts/`, unmodified, from [notofonts/noto-cjk](https://github.com/notofonts/noto-cjk) `Sans/SubsetOTF/TC`, © Google LLC / Adobe): SIL Open Font License 1.1 ([fonts/OFL.txt](fonts/OFL.txt)). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 - This repo contains no game text, DLLs, decompiled code or assets.
 
 ## Disclaimer

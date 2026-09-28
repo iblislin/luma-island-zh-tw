@@ -15,11 +15,12 @@ namespace LumaZhTw
     {
         public const string Guid = "iblislin.luma.zhtw";
         public const string Name = "Luma Island zh-TW";
-        public const string Version = "0.2.0";
+        public const string Version = "0.3.0";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
         internal static ConfigEntry<bool> DebugLogSamples;
+        internal static ConfigEntry<bool> UseTraditionalFont;
         internal static OpenCcConverter Converter;
         internal static Glossary Glossary = new Glossary();
         public const string GlossaryFileName = Guid + ".glossary.json";
@@ -38,6 +39,9 @@ namespace LumaZhTw
             DebugLogSamples = Config.Bind("Debug", "DebugLogSamples", false,
                 "Log the first 20 conversions (original -> converted) at Info level.");
 
+            UseTraditionalFont = Config.Bind("General", "UseTraditionalFont", true,
+                "When the locale is zh, render with Noto Sans TC (Taiwan glyph shapes) instead of Noto Sans SC. Takes effect on restart.");
+
             try
             {
                 var t0 = DateTime.UtcNow;
@@ -47,6 +51,11 @@ namespace LumaZhTw
                 RunSelfChecks();
                 var harmony = new Harmony(Guid);
                 harmony.PatchAll(typeof(Patches));
+                if (UseTraditionalFont.Value)
+                {
+                    try { FontSwapper.Init(Path.GetDirectoryName(Info.Location), harmony); }
+                    catch (Exception e) { Log.LogError("Font: init failed, keeping the original font: " + e); }
+                }
                 foreach (var m in harmony.GetPatchedMethods())
                     Log.LogInfo("Patched " + m.DeclaringType?.FullName + "." + m.Name);
             }
@@ -55,6 +64,7 @@ namespace LumaZhTw
                 Log.LogError("Initialization failed, mod disabled: " + e);
             }
         }
+
 
         // Loaded once per game start; the in-memory cache stores the final (OpenCC + glossary) result
         // and starts empty each run, so edits to the user glossary take effect on restart.

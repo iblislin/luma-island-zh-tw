@@ -36,7 +36,7 @@
 2. **Done (2026-09):** glossary. It has built-in rules (视频→影像, 视频游戏→電子遊戲, 图纸→藍圖) and user overrides, and was verified in game (视频 -> 影像). More terms will come from play reports.
 3. TMP fallback hook, if strings that bypass Localization turn up.
 4. Polish: handle game updates; list of known untranslated strings.
-5. **Lowest priority:** Noto Sans TC dynamic font asset (Taiwan glyph shapes). Text is already readable with the SC font.
+5. **Done (2026-09):** Noto Sans TC (Taiwan glyph shapes). The SC dynamic asset is repointed in place at `NotoSansTC-Regular.otf` (`new Font(path)` loads the file in the player; a `FontEngine.LoadFontFace` path redirect is the fallback) and its tables are cleared. Face metrics at size 90 are identical to SC (line height 130.32, ascent 104.4, descent -25.92), so layout is unchanged. Log-verified in game; the main-menu screenshot at 1080p is not visually conclusive.
 
 ## Risks
 
@@ -52,5 +52,5 @@
 - ~~Hook target~~: `StringTableEntry.GetLocalizedString(IFormatProvider, IList<object>, PseudoLocale)` + `TableEntry.LocalizedValue` getter.
 - ~~OpenCC runtime~~: small C# port with OpenCC's text dictionaries embedded.
 - ~~Glossary format~~: JSON, applied after OpenCC.
-- Font atlas size/settings for Noto Sans TC; ship OTF or subset?
+- ~~Font settings~~: reuse the SC asset (size 90, padding 9, 1024x1024 multi-atlas, SDFAA); ship the official SubsetOTF TC Regular (5.4 MB) unmodified.
 - How to expose the toggle in game (config file only vs. in-game menu).

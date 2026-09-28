@@ -4,7 +4,7 @@
     <AssemblyName>LumaZhTw</AssemblyName>
     <RootNamespace>LumaZhTw</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <!-- Path to the game install. Override: dotnet build -p:GameDir="D:\...\Luma Island" -->
     <GameDir Condition="'$(GameDir)' == ''">E:\SteamLibrary\steamapps\common\Luma Island</GameDir>
     <!-- A local, git-ignored copy of the game's Managed DLLs in GameRefs/ takes precedence -->
@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="UnityEngine.UI" HintPath="$(GameManaged)\UnityEngine.UI.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(GameManaged)\Unity.TextMeshPro.dll" Private="false" />
     <Reference Include="Unity.Localization" HintPath="$(GameManaged)\Unity.Localization.dll" Private="false" />
     <Reference Include="Unity.ResourceManager" HintPath="$(GameManaged)\Unity.ResourceManager.dll" Private="false" />
   </ItemGroup>
@@ -33,5 +35,6 @@
   <!-- dotnet build -c Release -p:DeployToGame=true copies the plugin into BepInEx/plugins/LumaZhTw -->
   <Target Name="Deploy" AfterTargets="Build" Condition="'$(DeployToGame)' == 'true'">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\BepInEx\plugins\LumaZhTw" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\..\fonts\NotoSansTC-Regular.otf;$(MSBuildThisFileDirectory)..\..\fonts\OFL.txt" DestinationFolder="$(GameDir)\BepInEx\plugins\LumaZhTw" />
   </Target>
 </Project>
