@@ -26,16 +26,17 @@
 - **Build refs:** game DLLs are referenced from a local, git-ignored `GameRefs/` folder.
 - **String hook:** patch the Localization lookup (candidates: StringTable entry's localized value, or `LocalizedString.GetLocalizedString`; exact target to confirm by decompiling). Convert only when the locale is Simplified Chinese and the zh-TW option is on. Cache results in a dictionary.
 - **Font:** the SC asset `NotoSansSC-Regular SDF` is Dynamic, multi-atlas, 657 pre-baked chars, with the full Noto Sans SC source embedded (30,890 codepoints), so Traditional characters already render with PRC shapes. Create a dynamic `TMP_FontAsset` from Noto Sans TC at runtime; make it primary (or first fallback) in zh-TW mode; keep SC as fallback.
-- **Glossary:** optional user JSON/CSV term overrides, applied after/around OpenCC.
+- **Glossary:** built-in JSON glossary embedded in the DLL, plus an optional user JSON file (config or plugin folder) that overrides it. It runs after OpenCC on the Traditional text: longest match first, no cascading. The cache stores the final result and is rebuilt every game start. Rules are checked against the full string table with `tools/audit_terms.py`.
 - **TMP fallback hook:** optional `TMP_Text` text-setter patch for strings that bypass Localization.
 - **Config:** BepInEx config toggle for zh-TW.
 
 ## Roadmap
 
 1. **Done (2026-09):** OpenCC `s2twp` conversion via a Localization hook, plus config toggle. Verified in game (locale zh): main-menu strings are converted, e.g. 音频→音訊, 视频→影片. Glyphs still use the SC font.
-2. Noto Sans TC dynamic font asset.
-3. Glossary override and TMP fallback hook.
+2. **Done (2026-09):** glossary. It has built-in rules (视频→影像, 视频游戏→電子遊戲, 图纸→藍圖) and user overrides, and was verified in game (视频 -> 影像). More terms will come from play reports.
+3. TMP fallback hook, if strings that bypass Localization turn up.
 4. Polish: handle game updates; list of known untranslated strings.
+5. **Lowest priority:** Noto Sans TC dynamic font asset (Taiwan glyph shapes). Text is already readable with the SC font.
 
 ## Risks
 
@@ -50,6 +51,6 @@
 
 - ~~Hook target~~: `StringTableEntry.GetLocalizedString(IFormatProvider, IList<object>, PseudoLocale)` + `TableEntry.LocalizedValue` getter.
 - ~~OpenCC runtime~~: small C# port with OpenCC's text dictionaries embedded.
-- Glossary format: JSON or CSV, and ordering relative to OpenCC.
+- ~~Glossary format~~: JSON, applied after OpenCC.
 - Font atlas size/settings for Noto Sans TC; ship OTF or subset?
 - How to expose the toggle in game (config file only vs. in-game menu).

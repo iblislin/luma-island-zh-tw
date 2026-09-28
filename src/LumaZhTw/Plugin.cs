@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -14,12 +15,14 @@ namespace LumaZhTw
     {
         public const string Guid = "iblislin.luma.zhtw";
         public const string Name = "Luma Island zh-TW";
-        public const string Version = "0.1.0";
+        public const string Version = "0.2.0";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
         internal static ConfigEntry<bool> DebugLogSamples;
         internal static OpenCcConverter Converter;
+        internal static Glossary Glossary = new Glossary();
+        public const string GlossaryFileName = Guid + ".glossary.json";
 
         private static readonly Dictionary<string, string> Cache = new Dictionary<string, string>(StringComparer.Ordinal);
         private static readonly object CacheLock = new object();
@@ -40,6 +43,8 @@ namespace LumaZhTw
                 var t0 = DateTime.UtcNow;
                 Converter = OpenCcConverter.FromEmbeddedResources();
                 Log.LogInfo($"OpenCC dictionaries loaded in {(DateTime.UtcNow - t0).TotalMilliseconds:F0} ms; self-test: 软件信息 -> {Converter.Convert("软件信息")}");
+                LoadGlossary();
+                RunSelfChecks();
                 var harmony = new Harmony(Guid);
                 harmony.PatchAll(typeof(Patches));
                 foreach (var m in harmony.GetPatchedMethods())
@@ -49,6 +54,52 @@ namespace LumaZhTw
             {
                 Log.LogError("Initialization failed, mod disabled: " + e);
             }
+        }
+
+        // Loaded once per game start; the in-memory cache stores the final (OpenCC + glossary) result
+        // and starts empty each run, so edits to the user glossary take effect on restart.
+        private void LoadGlossary()
+        {
+            var g = new Glossary();
+            using (var st = typeof(Plugin).Assembly.GetManifestResourceStream("LumaZhTw.Glossary.default.json"))
+            using (var r = new StreamReader(st, System.Text.Encoding.UTF8))
+                g.Merge(r.ReadToEnd());
+            Log.LogInfo($"Glossary: {g.Count} built-in entries");
+            var dirs = new[] { Path.GetDirectoryName(Info.Location), Paths.ConfigPath };
+            foreach (var dir in dirs)
+            {
+                string path = Path.Combine(dir ?? "", GlossaryFileName);
+                if (!File.Exists(path)) continue;
+                try
+                {
+                    g.Merge(File.ReadAllText(path, System.Text.Encoding.UTF8));
+                    Log.LogInfo($"Glossary: merged user file {path}");
+                }
+                catch (Exception e) { Log.LogError($"Glossary: ignoring invalid user file {path}: {e.Message}"); }
+            }
+            Glossary = g;
+            lock (CacheLock) Cache.Clear();
+            Log.LogInfo($"Glossary loaded: {g.Count} entries, fingerprint {g.Fingerprint()}");
+        }
+
+        internal static string ConvertFull(string text) => Glossary.Apply(Converter.Convert(text));
+
+        private static void RunSelfChecks()
+        {
+            // Checks the built-in rules through the full pipeline; a user glossary may legitimately change these.
+            var checks = new[]
+            {
+                ("视频", "影像"), ("视频设置", "影像設定"), ("视频游戏", "電子遊戲"),
+                ("图纸", "藍圖"), ("工作台图纸", "工作臺藍圖"), ("软件信息", "軟體資訊"),
+            };
+            int ok = 0;
+            foreach (var (src, want) in checks)
+            {
+                string got = ConvertFull(src);
+                if (got == want) ok++;
+                else Log.LogWarning($"Self-check: {src} -> {got}, expected {want}");
+            }
+            Log.LogInfo($"Self-check: {ok}/{checks.Length} passed (视频设置 -> {ConvertFull("视频设置")}, 图纸 -> {ConvertFull("图纸")})");
         }
 
         private static string _lastLocale;
@@ -76,7 +127,7 @@ namespace LumaZhTw
                 {
                     if (Cache.TryGetValue(text, out result)) return result;
                 }
-                result = Converter.Convert(text);
+                result = ConvertFull(text);
                 lock (CacheLock)
                 {
                     Cache[text] = result;
