@@ -32,7 +32,7 @@
 
 ## Roadmap
 
-1. OpenCC conversion via a Localization hook, plus config toggle.
+1. **Done (2026-09):** OpenCC `s2twp` conversion via a Localization hook, plus config toggle. In-game visual check with the language set to 简体中文 still pending.
 2. Noto Sans TC dynamic font asset.
 3. Glossary override and TMP fallback hook.
 4. Polish: handle game updates; list of known untranslated strings.
@@ -48,8 +48,8 @@
 
 ## Open questions
 
-- Exact hook target in Unity Localization (confirm by decompiling locally).
-- Which OpenCC runtime for Mono/.NET (port vs. bundled dictionaries)?
+- ~~Hook target~~: `StringTableEntry.GetLocalizedString(IFormatProvider, IList<object>, PseudoLocale)` + `TableEntry.LocalizedValue` getter.
+- ~~OpenCC runtime~~: small C# port with OpenCC's text dictionaries embedded.
 - Glossary format: JSON or CSV, and ordering relative to OpenCC.
 - Font atlas size/settings for Noto Sans TC; ship OTF or subset?
 - How to expose the toggle in game (config file only vs. in-game menu).

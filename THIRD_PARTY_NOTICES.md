@@ -1,15 +1,16 @@
 # Third-party notices
 
-This project will bundle the following third-party components under their own licenses. Their full license texts (and OpenCC's NOTICE, if any) will be included alongside the files when bundled.
+This project bundles the following third-party components under their own licenses.
 
 ## OpenCC
 
 - Project: https://github.com/BYVoid/OpenCC
 - Copyright (c) BYVoid and contributors
 - License: Apache License 2.0 — https://www.apache.org/licenses/LICENSE-2.0
-- Used: conversion dictionaries/configuration (`s2twp`). Any NOTICE file from OpenCC is reproduced with the bundled data.
+- Used: dictionary files `STPhrases.txt`, `STCharacters.txt`, `TWPhrases.txt`, `TWVariantsPhrases.txt`, `TWVariants.txt` from `data/dictionary` (commit 2939943b, 2026-09), unmodified, in `src/LumaZhTw/Dictionaries/` and embedded in `LumaZhTw.dll`. `STPhrases_GeneratedFromRegionalPhrases.txt` is derived from `TWPhrases.txt` by our script. The conversion logic mirrors OpenCC's `s2twp.json` but is our own code.
+- Full license text: [third_party/OpenCC/LICENSE](third_party/OpenCC/LICENSE). OpenCC ships no NOTICE file.
 
-## Noto Sans TC
+## Noto Sans TC (planned, Phase 2)
 
 - Project: https://github.com/notofonts/noto-cjk / https://fonts.google.com/noto/specimen/Noto+Sans+TC
 - Copyright (c) Google LLC and Adobe (Source Han Sans), with Reserved Font Name "Noto" as stated in the font's license
