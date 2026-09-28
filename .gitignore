@@ -1,0 +1,25 @@
+# Local game references (never commit)
+GameRefs/
+
+# Binaries
+*.dll
+*.pdb
+*.exe
+
+# .NET build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.nupkg
+packages/
+TestResults/
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+Thumbs.db
+.DS_Store
