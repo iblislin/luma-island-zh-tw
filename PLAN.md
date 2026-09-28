@@ -1,5 +1,13 @@
 # Plan
 
+## Background / demand
+
+- **Current locales:** the `localization-locales` bundle (checked 2026-09-28) lists 16 locales. Chinese is `zh` (Simplified) only; there is no Traditional Chinese locale.
+- **Earlier attempt:** a popular Traditional-Chinese Steam review (2024-11-28) says a Traditional Chinese option existed at launch but was "just Simplified→Traditional conversion". It is no longer present; the reason is unknown.
+- **Our angle:** close exactly that quality gap with `s2twp` Taiwan phrasing, Taiwan-standard glyphs from Noto Sans TC, and a glossary.
+- **Demand:** 215 Steam reviews in Traditional Chinese (156 positive / 59 negative) as of 2026-09. No Steam discussion threads request Traditional Chinese, and there is no developer statement about it.
+- **Reference:** in 2026-07 the developers declined a Czech request ("no plans to implement Czech language support").
+
 ## Goals
 
 - Show Luma Island in Traditional Chinese (Taiwan) by converting the shipped Simplified Chinese at runtime with OpenCC `s2twp`.

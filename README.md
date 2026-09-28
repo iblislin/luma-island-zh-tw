@@ -12,7 +12,7 @@ Luma Island already ships Simplified Chinese. This mod reuses it:
 2. **Taiwan glyphs with Noto Sans TC.** The game's Noto Sans SC font already covers nearly all CJK ideographs, but with PRC glyph shapes. The mod creates a dynamic TMP font asset from [Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC) at runtime and makes it primary while zh-TW is active, keeping Noto Sans SC as a fallback.
 3. **Glossary (planned).** An optional JSON/CSV file overrides game-specific terms that automatic conversion gets wrong.
 
-**For the developers:** this is a cheap path to official Traditional Chinese. Run your Simplified Chinese tables through OpenCC `s2twp` (Apache-2.0), add Noto Sans TC (OFL-1.1, free to ship), and have a native speaker review key terms. We'd be happy to share anything we learn.
+**For the developers:** this is a cheap path to official Traditional Chinese. Run your Simplified Chinese tables through OpenCC `s2twp` (Apache-2.0), add Noto Sans TC (OFL-1.1, free to ship), and have a native speaker review key terms. A plain conversion alone was apparently tried before, so this mod shows the fuller variant: Taiwan phrasing, TC glyphs and a glossary. We'd be happy to share anything we learn.
 
 ## Install (planned)
 
