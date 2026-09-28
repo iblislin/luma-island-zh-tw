@@ -23,3 +23,6 @@ TestResults/
 *.suo
 Thumbs.db
 .DS_Store
+
+# Dev audit output (contains game text, never commit)
+out/
