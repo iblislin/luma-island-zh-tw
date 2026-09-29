@@ -6,7 +6,7 @@
     <LangVersion>latest</LangVersion>
     <Version>0.3.0</Version>
     <!-- Path to the game install. Override: dotnet build -p:GameDir="D:\...\Luma Island" -->
-    <GameDir Condition="'$(GameDir)' == ''">E:\SteamLibrary\steamapps\common\Luma Island</GameDir>
+    <GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Luma Island</GameDir>
     <!-- A local, git-ignored copy of the game's Managed DLLs in GameRefs/ takes precedence -->
     <GameManaged Condition="Exists('$(MSBuildThisFileDirectory)..\..\GameRefs\Unity.Localization.dll')">$(MSBuildThisFileDirectory)..\..\GameRefs</GameManaged>
     <GameManaged Condition="'$(GameManaged)' == ''">$(GameDir)\Luma Island_Data\Managed</GameManaged>

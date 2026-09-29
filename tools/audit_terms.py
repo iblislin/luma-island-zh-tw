@@ -8,7 +8,7 @@ import collections, os, sys
 import UnityPy
 from opencc import OpenCC
 
-GAME = os.environ.get("LUMA_GAME_DIR", r"E:\SteamLibrary\steamapps\common\Luma Island")
+GAME = os.environ.get("LUMA_GAME_DIR", r"C:\Program Files (x86)\Steam\steamapps\common\Luma Island")
 BUNDLE = os.path.join(GAME, r"Luma Island_Data\StreamingAssets\aa\StandaloneWindows64",
                       "localization-string-tables-simplifiedchinese_assets_all.bundle")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "out")

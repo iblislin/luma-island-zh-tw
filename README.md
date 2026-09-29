@@ -63,12 +63,17 @@ Delete these from the game folder: `winhttp.dll`, `doorstop_config.ini`, `.doors
 
 Requirements: .NET SDK 6+ (tested with 8), the game installed.
 
+`GameDir` defaults to the standard Steam location, `C:\Program Files (x86)\Steam\steamapps\common\Luma Island`. If your game is in another Steam library, find its folder in Steam (right-click Luma Island → Manage → Browse local files) and pass it with `-p:GameDir=...`:
+
 ```sh
-# GameDir defaults to E:\SteamLibrary\steamapps\common\Luma Island
-dotnet build src/LumaZhTw -c Release -p:GameDir="C:\path	o\Luma Island"
+dotnet build src/LumaZhTw -c Release
+# game in another Steam library
+dotnet build src/LumaZhTw -c Release -p:GameDir="D:\SteamLibrary\steamapps\common\Luma Island"
 # also copy into <GameDir>/BepInEx/plugins/LumaZhTw/
-dotnet build src/LumaZhTw -c Release -p:DeployToGame=true
+dotnet build src/LumaZhTw -c Release -p:DeployToGame=true -p:GameDir="D:\SteamLibrary\steamapps\common\Luma Island"
 ```
+
+`tools/audit_terms.py` uses the same default; override it with the `LUMA_GAME_DIR` environment variable.
 
 - Game DLLs are referenced from `<GameDir>/Luma Island_Data/Managed`, or from a git-ignored `GameRefs/` folder at the repo root if it contains `Unity.Localization.dll`. They are never copied or committed.
 - BepInEx/Harmony and Unity module references come from NuGet (`nuget.bepinex.dev`).
