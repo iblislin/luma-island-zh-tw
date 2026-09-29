@@ -14,10 +14,26 @@ Luma Island already ships Simplified Chinese. This mod reuses it:
 
 **For the developers:** this is a cheap path to official Traditional Chinese. Run your Simplified Chinese tables through OpenCC `s2twp` (Apache-2.0), add Noto Sans TC (OFL-1.1, free to ship), and have a native speaker review key terms. A plain conversion alone was apparently tried before, so this mod shows the fuller variant: Taiwan phrasing, TC glyphs and a glossary. We'd be happy to share anything we learn.
 
+## For players / 玩家安裝
+
+1. Install [BepInEx 5.4.x](https://github.com/BepInEx/BepInEx/releases) (`BepInEx_win_x64_5.4.*.zip`) into the game folder (Steam: right-click Luma Island → Manage → Browse local files). Start the game once, then quit.
+2. Extract `LumaZhTw-v0.3.0.zip` from [Releases](https://github.com/iblislin/luma-island-zh-tw/releases) into the game folder. It creates `BepInEx/plugins/LumaZhTw/`.
+3. In the game, set the language to **简体中文**.
+4. Uninstall: delete `BepInEx/plugins/LumaZhTw/` (or remove BepInEx entirely, see [Uninstall](#uninstall)).
+5. Config: `BepInEx/config/iblislin.luma.zhtw.cfg` (`Enabled`, `UseTraditionalFont`, `DebugLogSamples`).
+6. Your own glossary: `BepInEx/config/iblislin.luma.zhtw.glossary.json` (see [Glossary](#glossary)).
+
+1. 安裝 [BepInEx 5.4.x](https://github.com/BepInEx/BepInEx/releases)（`BepInEx_win_x64_5.4.*.zip`）到遊戲資料夾（Steam：在 Luma Island 上按右鍵 → 管理 → 瀏覽本機檔案）。先啟動遊戲一次再關閉。
+2. 將 `LumaZhTw-v0.3.0.zip` 解壓縮到遊戲資料夾，會產生 `BepInEx/plugins/LumaZhTw/`。
+3. 在遊戲中把語言設為 **简体中文**。
+4. 移除：刪除 `BepInEx/plugins/LumaZhTw/`（或完整移除 BepInEx，見 [Uninstall](#uninstall)）。
+5. 設定檔：`BepInEx/config/iblislin.luma.zhtw.cfg`（`Enabled`、`UseTraditionalFont`、`DebugLogSamples`）。
+6. 自訂詞彙表：`BepInEx/config/iblislin.luma.zhtw.glossary.json`（見 [Glossary](#glossary)）。
+
 ## Install
 
 1. Download BepInEx 5.4.x `BepInEx_win_x64_*.zip` from the [official releases](https://github.com/BepInEx/BepInEx/releases) and extract it into the game folder (next to `Luma Island.exe`). This adds `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version` and a `BepInEx/` folder. The game's exe and DLLs are not modified.
-2. Copy `LumaZhTw.dll`, `fonts/NotoSansTC-Regular.otf` and `fonts/OFL.txt` into `BepInEx/plugins/LumaZhTw/`.
+2. Extract the release zip into the game folder, or copy `LumaZhTw.dll`, `fonts/NotoSansTC-Regular.otf` and `fonts/OFL.txt` into `BepInEx/plugins/LumaZhTw/`.
 3. In the game, set the language to **简体中文** (Simplified Chinese). The mod converts it to Traditional Chinese (Taiwan).
 
 Config (`BepInEx/config/iblislin.luma.zhtw.cfg`, created on first run):
