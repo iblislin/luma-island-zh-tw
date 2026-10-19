@@ -17,14 +17,14 @@ Luma Island already ships Simplified Chinese. This mod reuses it:
 ## For players / 玩家安裝
 
 1. Install [BepInEx 5.4.x](https://github.com/BepInEx/BepInEx/releases) (`BepInEx_win_x64_5.4.*.zip`) into the game folder (Steam: right-click Luma Island → Manage → Browse local files). Start the game once, then quit.
-2. Extract `LumaZhTw-v0.3.0.zip` from [Releases](https://github.com/iblislin/luma-island-zh-tw/releases) into the game folder. It creates `BepInEx/plugins/LumaZhTw/`.
+2. Extract `LumaZhTw-v0.3.1.zip` from [Releases](https://github.com/iblislin/luma-island-zh-tw/releases) into the game folder. It creates `BepInEx/plugins/LumaZhTw/`.
 3. In the game, set the language to **简体中文**.
 4. Uninstall: delete `BepInEx/plugins/LumaZhTw/` (or remove BepInEx entirely, see [Uninstall](#uninstall)).
 5. Config: `BepInEx/config/iblislin.luma.zhtw.cfg` (`Enabled`, `UseTraditionalFont`, `DebugLogSamples`).
 6. Your own glossary: `BepInEx/config/iblislin.luma.zhtw.glossary.json` (see [Glossary](#glossary)).
 
 1. 安裝 [BepInEx 5.4.x](https://github.com/BepInEx/BepInEx/releases)（`BepInEx_win_x64_5.4.*.zip`）到遊戲資料夾（Steam：在 Luma Island 上按右鍵 → 管理 → 瀏覽本機檔案）。先啟動遊戲一次再關閉。
-2. 將 `LumaZhTw-v0.3.0.zip` 解壓縮到遊戲資料夾，會產生 `BepInEx/plugins/LumaZhTw/`。
+2. 將 `LumaZhTw-v0.3.1.zip` 解壓縮到遊戲資料夾，會產生 `BepInEx/plugins/LumaZhTw/`。
 3. 在遊戲中把語言設為 **简体中文**。
 4. 移除：刪除 `BepInEx/plugins/LumaZhTw/`（或完整移除 BepInEx，見 [Uninstall](#uninstall)）。
 5. 設定檔：`BepInEx/config/iblislin.luma.zhtw.cfg`（`Enabled`、`UseTraditionalFont`、`DebugLogSamples`）。

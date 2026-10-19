@@ -15,7 +15,7 @@ namespace LumaZhTw
     {
         public const string Guid = "iblislin.luma.zhtw";
         public const string Name = "Luma Island zh-TW";
-        public const string Version = "0.3.0";
+        public const string Version = "0.3.1";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
