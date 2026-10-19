@@ -3,5 +3,6 @@
   "影片遊戲": { "to": "電子遊戲", "note": "视频游戏 = video game (credits); keeps the 影片 rule from giving 影像遊戲" },
   "圖紙": { "to": "藍圖", "note": "图纸 = building/crafting blueprints; ~68 strings" },
   "手柄": { "to": "手把", "note": "手柄 = game controller (s2twp leaves it as is); 2 strings" },
-  "攝像頭": { "to": "攝影機", "note": "摄像头 = camera (s2twp gives 攝像頭); 1 string" }
+  "攝像頭": { "to": "攝影機", "note": "摄像头 = camera (s2twp gives 攝像頭); 1 string" },
+  "操作杆": { "to": "搖桿", "note": "操作杆 = control stick (s2twp leaves 杆 unconverted); 1 string" }
 }
